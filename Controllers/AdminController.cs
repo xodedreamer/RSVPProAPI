@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace RSVPProAPI.Controllers
 {
-   // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -35,7 +35,6 @@ namespace RSVPProAPI.Controllers
             return Ok(events);
         }
 
-       // [Authorize(Roles = "Admin")]
         [HttpGet("track-signups")]
         public async Task<IActionResult> GetAllSignUps()
         {

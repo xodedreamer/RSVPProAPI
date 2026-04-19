@@ -7,6 +7,7 @@ using System.Security.Claims;
 
 namespace RSVPProAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -15,7 +16,6 @@ namespace RSVPProAPI.Controllers
 
         public UsersController(IRSVPProService repo) => _repo = repo;
 
-        [Authorize] // Requires any logged in user
         [HttpPost("accept/{eventId}")]
         public async Task<IActionResult> AcceptEvent(int eventId)
         {
@@ -35,7 +35,6 @@ namespace RSVPProAPI.Controllers
             return success ? Ok("RSVP Confirmed") : BadRequest("Failed to RSVP");
         }
 
-        [Authorize]
         [HttpGet("my-events")]
         public async Task<IActionResult> GetEventsForUser()
         {
