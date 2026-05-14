@@ -34,7 +34,13 @@ namespace RSVPProAPI.Controllers
             }
 
             var token = GenerateJwtToken(user);
-            return Ok(new { token });
+
+            return Ok(new AuthResponse(
+                Token: token,
+                FullName: user.FullName,
+                Email: user.Email,
+                Role: user.Role
+            ));
         }
 
         [HttpPost("register")]
@@ -42,6 +48,7 @@ namespace RSVPProAPI.Controllers
         {
             var user = new User
             {
+                FullName = request.FullName,
                 Email = request.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.PasswordHash),
                 Role = request.Role
