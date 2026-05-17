@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RSVPProAPI.Dtos;
 using RSVPProAPI.Models;
 using RSVPProAPI.Services;
@@ -37,6 +38,13 @@ namespace RSVPProAPI.Controllers
             };
             await _repo.CreateEventAsync(newEvent);
             return Ok("Event Created.");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetEvents()
+        {
+            var events = await _repo.GetAllEventsAsync();
+            return Ok(events);
         }
     }
 }

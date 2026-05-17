@@ -13,7 +13,7 @@ namespace RSVPProAPI.Services
         // Event Management (Admin)
         Task<bool> CreateEventAsync(Event newEvent);
         Task<bool> CreateEventWithImageAsync(CreateEventDto dto);
-        Task<IEnumerable<Event>> GetAllEventsAsync();
+        Task<IEnumerable<EventResponse>> GetAllEventsAsync();
         // Admin: View all RSVPs for tracking
         Task<IEnumerable<Rsvp>> GetAllRsvpsAsync();
         Task<IEnumerable<Rsvp>> GetRsvpsByEventIdAsync(int eventId);

@@ -59,8 +59,21 @@ namespace RSVPProAPI.Services
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<Event>> GetAllEventsAsync() =>
-            await _context.Events.Include(e => e.Rsvps).ToListAsync();
+        public async Task<IEnumerable<EventResponse>> GetAllEventsAsync()
+        {
+            return await _context.Events
+                .AsNoTracking() // Performance optimization for read-only endpoints
+                .Select(e => new EventResponse(
+                    e.Id,
+                    e.Title,
+                    e.Description,
+                    e.Type.ToString(), // Executes database side string conversion for the Enum
+                    e.EventDate ?? DateTime.MinValue, // Handle nullable DateTime   
+                    e.Location,
+                    e.ImageUrl
+                ))
+                .ToListAsync();
+        }
 
         //User logic
 
